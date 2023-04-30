@@ -1,5 +1,5 @@
 #include <rtx51tny.h>
-extern unsigned char wt_wait(unsigned char tick,unsigned int count);
+#include "WtWait.h"
 unsigned long count0=0,count1=0;
 void job0(void) _task_ 0
 {	
@@ -15,7 +15,7 @@ void job1(void) _task_ 1
 {
 	while(1)
 	{
-		wt_wait(255,2);
+		wt_wait(255,3);
 		count1++;
 	}
 }

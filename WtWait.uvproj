@@ -377,11 +377,6 @@
           <GroupName>Source Group 1</GroupName>
           <Files>
             <File>
-              <FileName>Conf_tny.A51</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\Conf_tny.A51</FilePath>
-            </File>
-            <File>
               <FileName>WtWait.a51</FileName>
               <FileType>2</FileType>
               <FilePath>.\WtWait.a51</FilePath>
@@ -390,6 +385,11 @@
               <FileName>test.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\test.c</FilePath>
+            </File>
+            <File>
+              <FileName>WtWait.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\WtWait.h</FilePath>
             </File>
           </Files>
         </Group>
