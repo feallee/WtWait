@@ -1,32 +1,27 @@
 ;#include <rtx51tny.h>
-
-;unsigned char wt_wait(unsigned char tick, unsigned int count)
+;unsigned char wt_wait(unsigned char type, unsigned int count, unsigned char tick)
 ;{
 ;	unsigned char ret = TMO_EVENT;
 ;	while(count-- && ret == TMO_EVENT)
 ;	{
-;		ret = os_wait2(K_SIG | K_TMO, tick);
+;		ret = os_wait2(type, tick);
 ;	}
 ;	return ret;
 ;}
-
 
 NAME	WTWAIT
 ?PR?_wt_wait?WTWAIT       SEGMENT CODE 
 	EXTRN	CODE (_os_wait2)
 	PUBLIC	_wt_wait 
-; unsigned char wait(unsigned char tick,unsigned int count)
+; unsigned char wt_wait(unsigned char type, unsigned int count, unsigned char tick)
 	RSEG  ?PR?_wt_wait?WTWAIT
 _wt_wait:
-	USING	0
-	;MOV  	tick?040,R7;=R0
-	;MOV  	count?041,R4;=R1
-	;MOV  	count?041+01H,R5;=R2
-	MOV	R0,AR7
-	MOV	R1,AR4
-	MOV	R2,AR5
-; {
-			
+	USING	0		
+	MOV	R0,AR3;tick
+	MOV R3,AR7;type
+	MOV	R1,AR4;count msb
+	MOV	R2,AR5;count lsb	
+; {			
 ; 	unsigned char ret = TMO_EVENT;
 	MOV  	R7,#08H
 ?C0001:
@@ -43,13 +38,15 @@ _wt_wait:
 	XRL  	A,#08H
 	JNZ  	?C0002
 ; 	{			
-; 		ret = os_wait2(K_SIG | K_TMO, tick);
+; 		ret = os_wait2(type, tick);
 	PUSH	AR0;
 	PUSH	AR1
 	PUSH	AR2
-	MOV  	R5,AR0
-	MOV  	R7,#03H
+	PUSH 	AR3
+	MOV  	R5,AR0;tick
+	MOV  	R7,AR3;type
 	LCALL	_os_wait2
+	POP		AR3
 	POP		AR2
 	POP		AR1
 	POP		AR0
